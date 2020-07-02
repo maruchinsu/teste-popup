@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Teste de pop-up modal</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+
+		<!-- 
+			Estrutura da div:
+			 - "modal-popup-container" mostra na tela a janela do pop-up e o fundo preto.
+			 - "modal" é a janelinha em si (texto e botão).
+			 - a id "modal-popup" é o argumento a ser trabalhado dentro da função que faz o modal funcionar.
+		-->
+
+
+		<div id="modal-popup" class="modal-popup-container">
+			<div class="modal">
+				<h3>Aviso Importante:</h3>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in <a href="">voluptate velit</a> esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<a href="">lorem ipsum</a>
+				<button class="fechar-popup">Prosseguir para página inicial</button>
+			</div>
+		</div>
+
+
+
+		<style type="text/css">
+
+			.modal-popup-container {
+				background: rgba(0, 0, 0, 0.5);
+				width: 100vw;
+				height: 100vh;
+				min-width: 300px;
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				z-index: 9999;
+				/* Centraliza o texto e botões do modal */
+				display: none;
+				justify-content: center;
+				align-items: center;
+				/* fim da centralização */
+			}
+
+			.modal-popup-container.mostrar {
+				display: flex;
+			}
+
+			.modal {
+				background: #fff;
+				padding: 20px;
+				border-radius: 10px;
+				max-width: 700px;
+				min-width: 200px;
+				text-align: justify;
+			}
+
+			.modal h3 {
+				text-align: center;
+				margin-top: 0;
+			}
+
+			.modal p a {
+				display: inline;
+			}
+
+			.modal a {
+				display: block;
+				margin-bottom: 20px;
+			}
+
+			.fechar-popup {
+				cursor: pointer;
+				padding: 10px;
+				margin-top: 0;
+				border-radius: 5px;
+				background-color: #574b90;
+				color: white;
+			}
+
+			.fechar-popup:hover {
+				background-color: #4b3f82;
+			}
+
+		</style>
+
+		<script type="text/javascript">
+
+			function iniciaModal(modalID) {
+				if(sessionStorage.getItem('ja-fechou') != 'true'){
+					const modal = document.getElementById(modalID);
+					modal.classList.add('mostrar');
+					// Fechando o modal a partir do botão 
+					modal.addEventListener('click', function(evento) {
+						if(evento.target.className == 'fechar-popup'){
+							modal.classList.remove('mostrar');
+							console.log('O botão de fechar está funcionando.');
+							sessionStorage.setItem('ja-fechou', 'true');	// Evita que o pop-up apareça toda vez que o usuário acessar a dashboard na mesma sessão
+						}
+					});
+				}
+			}
+
+			iniciaModal('modal-popup');
+
+		</script>
+	</body>
+</html>
